@@ -1,28 +1,28 @@
 package com.matejdr.admanager;
 
-import androidx.annotation.Nullable;
-
 import android.location.Location;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.common.MapBuilder;
+import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.bridge.ReactApplicationContext;
 import com.google.android.gms.ads.AdSize;
-
-import java.util.ArrayList;
-import java.util.Map;
-
+import com.google.android.gms.ads.MobileAds;
 import com.matejdr.admanager.customClasses.CustomTargeting;
 import com.matejdr.admanager.enums.TargetingEnums;
 import com.matejdr.admanager.enums.TargetingEnums.TargetingTypes;
 import com.matejdr.admanager.utils.Targeting;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class RNAdManagerBannerViewManager extends ViewGroupManager<BannerAdView> {
 
@@ -44,17 +44,17 @@ public class RNAdManagerBannerViewManager extends ViewGroupManager<BannerAdView>
     public static final String EVENT_APP_EVENT = "onAppEvent";
 
     public static final int COMMAND_LOAD_BANNER = 1;
-
-    @Override
-    public String getName() {
-        return REACT_CLASS;
-    }
-
     private ReactApplicationContext applicationContext;
 
     public RNAdManagerBannerViewManager(ReactApplicationContext context) {
         super();
         this.applicationContext = context;
+        MobileAds.initialize(context);
+    }
+
+    @Override
+    public String getName() {
+        return REACT_CLASS;
     }
 
     @Override
